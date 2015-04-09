@@ -1,39 +1,169 @@
-Titanium.UI.setBackgroundColor('#000');
-
+Titanium.UI.setBackgroundColor('#fff');
 var win1 = Titanium.UI.createWindow({  //Windows
-    text: 'VandalAppointments',
-    backgroundColor:'#d2b45b'
+    text: 'Vandal Appointments',
+    backgroundColor: 'fff'
 });
 var scheduleWindow = Ti.UI.createWindow({
 	text:'MySchedule',
+	fontFamily: 'Museo Slab',
 	backgroundColor:'#fff'
 });
 var makeappointmentWindow = Ti.UI.createWindow({
 	text:'Make Appointment',
-	backgroundColor:'#fff'
+	fontFamily: 'Museo Slab',
+	
 });
+
+var studentsearch = Ti.UI.createTextField({
+  borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
+  color: '#9f9d9d',
+  top: '35%', 
+  width: '35%', 
+  height: '5%'
+});
+
+
+var studentsearchLabelView = Ti.UI.createView({
+	top: '22%',
+	left: '20%',
+	height: '15%',
+	width: '80%',
+});
+	
+var studentsearchLabel = Ti.UI.createLabel({
+	textAlign: 'center',
+	top: '30%',
+	width: '95%',
+	text: 'Student Search',
+	font:{
+		fontSize:'10sp',
+		fontWeight:'bold',
+		fontFamily: 'Helvetica Neue',
+	}	
+});
+
+makeappointmentWindow.add(studentsearchLabelView);
+makeappointmentWindow.add(studentsearchLabel);
+
+
+
+
+var timesearch = Ti.UI.createTextField({
+  borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
+  color: '#9f9d9d',
+  top: '50%', 
+  width: '35%', 
+  height: '5%'
+});
+
+var timesearchLabelView = Ti.UI.createView({
+	top: '45%',
+	left: '20%',
+	height: '15%',
+	width: '80%',
+});
+
+var timesearchLabel = Ti.UI.createLabel({
+	textAlign: 'center',
+	top: '45%',
+	width: '95%',
+	text: 'Time Select',
+	font:{
+		fontSize:'10sp',
+		fontWeight:'bold',
+		fontFamily: 'Helvetica Neue',
+}});
+makeappointmentWindow.add(timesearchLabelView);
+makeappointmentWindow.add(timesearchLabel);
+makeappointmentWindow.add(studentsearch);
+makeappointmentWindow.add(timesearch);
+
+var submitButton =Ti.UI.createButton({
+	title: 'Submit',
+		color:'#b18e5f',
+		height:Ti.UI.FILL,
+		top: '65%',
+		width:'30%',
+		height: '5%',
+		borderColor: 'black',							
+		textAlign:'Center',
+		font:{
+			fontSize:'10sp',
+			fontWeight:'bold',
+			fontFamily: 'Helvetica Neue',
+}
+});
+
+makeappointmentWindow.add(submitButton);
+
+var tableData = [];
+	tableData[0] = 'Time1- Appointment 1: Student 1'; 
+	tableData[1] = 'Time2- Appointment 2: Student 2'; 
+	tableData[2] = 'Time3- Appointment 3: Student 3'; 
+	tableData[3] = 'Time4- Appointment 4: Student 4';
+	tableData[4] = 'Time5- Appointment 5: Student 5';
+	tableData[5] = 'Time6- Appointment 6: Student 6';
+	tableData[6] = 'Time7- Appointment 7: Student 7';
+		
+//creating an empty array to store the rows in
+var rowViewData = [];
+//this function is binding the rows together with the background color. Custom Trait of cbeTag to keep track of each entry
+function bindRowData (){
+for (var i=0; i<tableData.length; i++) {
+var rowView = Ti.UI.createTableViewRow({
+	title: tableData[i],
+		font: 'Helvetica Neue',
+		fontSize: '10sp',
+	height:45,
+	backgroundColor: '#9f9d9d',
+	fontColor: 'black',
+	fontSize: '10sp',
+	cbeTag: i
+});
+//Pushing the row data into the finished array
+rowViewData.push(rowView);
+}
+return rowViewData;
+}
+/*Simply put, adds the above data to the table. */
+var table1 = Ti.UI.createTableView({
+	headerTitle: 'My Appointments',
+	font:{
+		fontFamily: 'Helvetica Neue',
+		fontSize: '10sp',
+	},
+	data: bindRowData(),
+	top: '22%',
+	bottom: '15%'
+		
+});
+
+
 var cancelWindow = Ti.UI.createWindow({
 	text:'Cancel Appointment',
+	fontFamily: 'Museo Slab',
 	backgroundColor:'#fff'
 });
 var appointmentlistWindow = Ti.UI.createWindow({
 	text:'Appointment List',
+	fontFamily: 'Museo Slab',
 	backgroundColor:'#fff'
 });
 var titleView = Ti.UI.createView({		//Titles
-	height: '20%',
-	width: '100%',
-	top:'0%',
-	backgroundImage: 'Summer-Sand-Volleyball.jpg'
+	top: '3.1%',
+	backgroundColor: 'black',
+	height: '17%',
+	width: '100%',	
 });
 var titleLabel = Ti.UI.createLabel({
-	text:'VandalAppointments',
-	left: '45%',
+	text:'Vandal Appointments',
+	textAlign: 'center',
+	color: 'b18e5f',
 	height: Ti.UI.FILL,
 	font:{
-			fontSize:'75sp',
+			fontSize:'12sp',
 			fontWeight:'bold',
-			fontColor:'#FF0000'
+			fontFamily: 'Museo Slab',
 	}									
 });
 var scheduleTitleView = Ti.UI.createView({
@@ -43,13 +173,14 @@ var scheduleTitleView = Ti.UI.createView({
 	width: '100%',
 });
 var scheduleTitleLabel = Ti.UI.createLabel({
-	text:'MySchedule',
+	text:'My Schedule',
 	textAlign: 'center',
-	color: '#d2b45b',
+	color: '#b18e5f',
 	height:Ti.UI.FILL,
 	font:{
-		fontSize:'75sp',
+		fontSize:'12sp',
 		fontWeight:'bold',
+		fontFamily: 'Museo Slab',
 	}
 });
 var makeappointmentTitleView = Ti.UI.createView({
@@ -60,93 +191,64 @@ var makeappointmentTitleView = Ti.UI.createView({
 });
 var makeappointmentTitleLabel = Ti.UI.createLabel({
 	text:'Make Appointment',
-	color: '#d2b45b',
+	color: '#b18e5f',
 	textAlign:'center',
 	height:Ti.UI.FILL,
 	font:{
-		fontSize:'75sp',
+		fontSize:'12sp',
 		fontWeight:'bold',
+		fontFamily: 'Museo Slab',
 	}
 });
 var cancelTitleView = Ti.UI.createView({
 	top: 0,
+	backgroundColor: 'black',
 	height:'20%',
 	width: '100%',
 });
 var cancelTitleLabel = Ti.UI.createLabel({
 	text:'Cancel Appointment',
+	color: '#b18e5f',
 	textAlign:'center',
 	height:Ti.UI.FILL,
 	font:{
-		fontSize:'75sp',
+		fontSize:'12sp',
 		fontWeight:'bold',
+		fontFamily: 'Museo Slab',
 	}
 });
 var appointmentlistTitleView = Ti.UI.createView({
 	top: 0,
+	backgroundColor: 'black',
 	height:'20%',
 	width: '100%',
 });
 var appointmentlistTitleLabel = Ti.UI.createLabel({
 	text:'Appointment List',
+	color: '#b18e5f',
 	textAlign:'center',
 	height:Ti.UI.FILL,
 	font:{
-		fontSize:'75sp',
+		fontSize:'12sp',
 		fontWeight:'bold',
+		fontFamily: 'Museo Slab',
 	}
 });
 // START CENTER SCREEN
-var ContactList = Ti.UI.createView({				//HOME SCREEN
-	height:'13%',
-	width:'45%',
-	left:'35%',
-	top: '40%',				
+var homescreenImage = Ti.UI.createImageView({				//HOME SCREEN
+	top:'40%',
+	width:'70%',
+	left:'25%',
+	image: '/Images/UISeal.jpg'
 });
-var contactInfo = Ti.UI.createLabel({
-	text: 'Butch Fealy \nDirector of Intramural Sports \nPhone: (208) 885-8979 \nEmail:bfealy@uidaho.edu',
-	textAlign:'center',
-	height:Ti.UI.FILL,
-	font:{
-		fontSize:'25sp'
-	}
+					
+var schedulepic = Ti.UI.createImageView({
+	top: '25%',
+	height: '60%',
+	width: '95%',
+	image: '/Images/image23.png',
 });
-var soccerpic = Ti.UI.createImageView({
-	top: 0,
-	left: 0,
-	height:'17%',
-	width:'10%',
-	image: '/Images/soccerball.png'
-});
-var basketballpic = Ti.UI.createImageView({
-	top: 0,
-	right: 0,
-	height:'17%',
-	width:'10%',
-	image: '/Images/basketball.jpg'
-});
-var baseballpic = Ti.UI.createImageView({
-	bottom: 0,
-	left: 0,
-	height:'17%',
-	width:'10%',
-	image: '/Images/baseball.png'
-});
-var tennispic = Ti.UI.createImageView({
-	bottom: 0,
-	right: 0,
-	height:'17%',
-	width:'10%',
-	image: '/Images/tennisball.png'
-});
-var HomeScrnPic = Ti.UI.createView({
-	height:'35%',
-	width:'80%',
-	left:'20%',
-	bottom: 0,
-	borderRadius: 20,
-	backgroundImage:'/Images/IntramuralsSports.jpg'
-});
+
 var returnView = Ti.UI.createView({		//ButtonViews
 	bottom: '0',
 	left: 0,
@@ -189,79 +291,79 @@ var scheduleWindView = Ti.UI.createView({
 	width: '100%',
 	top: '20%',
 	bottom: '5%',
-	backgroundImage: '/Images/Bus 353- Scores.JPG',
+	backgroundImage: '/Images/image23.png',
 });	
-var scheduleWindView = Ti.UI.createView({
-	height: '70%',
-	width: '100%',
-	top: '20%',
-	bottom: '5%',
-	backgroundImage: '/Images/Bus 353-Schedule.JPG',
-});		
+
 
 var blurbLabel = Ti.UI.createLabel({		
 	textAlign: 'center',
 	top: '5%',
-	text: 'Intramural Sports are available for the University of Idaho campus community to participate in structured activities at a competitive or recreational level. No matter what your skill level you will have a good time.',
+	width: '95%',
+	text: 'Vandal Appointments is a resource for students and professors to schedule meeting times with one another. Easily schedule a time to meet with your professor without the hassle of sending them an email or going to their office hours!',
 	font:{
-		fontSize:'25sp',
+		fontSize:'10sp',
 		fontWeight:'bold',
+		fontFamily: 'Helvetica Neue',
 	}	
 });
 
 var scheduleButton = Ti.UI.createButton({			//Buttons
 	title: 'Schedule',
-		color:'#d2b45b',
+		color:'#b18e5f',
 		height:Ti.UI.FILL,
 		width:'100%',
 		height: '100%',
-		borderColor: '#d2b45b',							
+		borderColor: '#b18e5f',							
 		textAlign:'Center',
 		font:{
-			fontSize:'35sp',
-			fontWeight:'bold'
+			fontSize:'10sp',
+			fontWeight:'bold',
+			fontFamily: 'Museo Slab',
 		},
 		backgroundColor:'black'
 });
 var makeappointmentButton = Ti.UI.createButton({
-	title:'Make Appointment',
-		color:'#d2b45b',
+	title:'Create',
+		color:'#b18e5f',
 		height:Ti.UI.FILL,
 		width:'100%',
 		height: '100%',
-		borderColor: '#d2b45b',
+		borderColor: '#b18e5f',
 		textAlign:'Center',
 		font:{
-			fontSize:'35sp',
-			fontWeight:'bold'
+			fontSize:'10sp',
+			fontWeight:'bold',
+			fontFamily: 'Museo Slab',
 		},
 		backgroundColor:'black'
 });
 var cancelButton = Ti.UI.createButton({
-	title:'Cancel Appointment',
-		color:'#d2b45b',
+	title:'Cancel',
+		color:'#b18e5f',
 		height:Ti.UI.FILL,
 		width:'100%',
 		height: '100%',
-		borderColor: '#d2b45b',
+		borderColor: '#b18e5f',
 		textAlign:'Center',
 		font:{
-			fontSize:'35sp',
-			fontWeight:'bold'
+			fontSize:'10sp',
+			fontWeight:'bold',
+			fontFamily: 'Museo Slab',
 		},
 		backgroundColor:'black'
 });
 var appointmentlistButton = Ti.UI.createButton({
-	title:'Appointment List',
-		color:'#d2b45b',
+	title:'List',
+		color:'#b18e5f',
 		height:Ti.UI.FILL,
 		width:'100%',
 		height: '100%',
-		borderColor: '#d2b45b',
+		borderColor: '#b18e5f',
 		textAlign:'Center',
 		font:{
-			fontSize:'35sp',
-			fontWeight:'bold'
+			fontSize:'10sp',
+			fontWeight:'bold',
+			fontFamily: 'Museo Slab',
 		},
 		backgroundColor:'black'
 });
@@ -274,11 +376,12 @@ var returnButton = Ti.UI.createButton({
 	height:'100%',
 	left: 0,
 	bordercolor:'black',
-	backgroundColor: '#d2b45b',
+	backgroundColor: '#9f9d9d',
 	textAlign:'center',
 	font:{
-		fontSize:'35sp',
+		fontSize:'10sp',
 		fontWeight:'bold',
+		fontFamily: 'Museo Slab',
 	},
 	backgroundcolor:'#333333'
 });
@@ -329,8 +432,7 @@ win1.add(makeappointmentView);
 win1.add(cancelView);
 win1.add(appointmentlistView);
 win1.add(blurbView);
-win1.add(HomeScrnPic);
-win1.add(ContactList);
+win1.add(homescreenImage);
 scheduleWindow.add(returnView);
 makeappointmentWindow.add(returnView);
 cancelWindow.add(returnView);
@@ -353,9 +455,5 @@ scheduleTitleView.add(scheduleTitleLabel);
 makeappointmentTitleView.add(makeappointmentTitleLabel);
 cancelTitleView.add(cancelTitleLabel);
 appointmentlistTitleView.add(appointmentlistTitleLabel);
-ContactList.add(contactInfo);
-ContactList.add(soccerpic);
-ContactList.add(basketballpic);
-ContactList.add(baseballpic);
-ContactList.add(tennispic);
-
+scheduleWindow.add(schedulepic);
+appointmentlistWindow.add(table1);
